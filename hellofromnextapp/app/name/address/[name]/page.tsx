@@ -8,7 +8,7 @@ export default function GiveName({
   searchParams,
 }: {
   params: { name: string };
-  searchParams: { id: string };
+  searchParams?: { id?: string };
 }) {
   const router = useRouter();
   return (
