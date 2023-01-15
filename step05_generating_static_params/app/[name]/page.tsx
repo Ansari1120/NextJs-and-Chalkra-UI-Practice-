@@ -14,7 +14,7 @@ export default function GiveName({ params, searchParams }: {
 }) {
     return (
       <div>
-            My name is {params.name}.
+            This is the static its page name is : {params.name}.
             
       </div>
     )
