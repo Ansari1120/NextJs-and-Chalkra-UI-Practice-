@@ -1,4 +1,3 @@
-
 //https://beta.nextjs.org/docs/data-fetching/generating-static-params
 export async function generateStaticParams() {
   const names: string[] = ["zia", "zeeshan", "hira"];
@@ -8,13 +7,16 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function GiveName({ params, searchParams }: {
-  params: { name: string },
-  searchParams: { id: string },
+export default function GiveName({
+  params,
+  searchParams,
+}: {
+  params: { name: string };
+  searchParams: { id: string };
 }) {
-    return (
-      <div>
-      <main className={styles.main}>
+  return (
+    <div>
+      <main>
         <h2>The static Page</h2>
         this staic page name is {params.name}.
         <br />
@@ -32,5 +34,5 @@ export default function GiveName({ params, searchParams }: {
         </button>
       </main>
     </div>
-    )
-  }
+  );
+}
