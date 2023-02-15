@@ -20,10 +20,10 @@ export default function Home() {
           <br />
           <h3>Dynamic paging</h3>
           <p>
-            we can create a new named page at runtime by dynamically adressing
-            new url
+            we can create a new named page at bultime by satically adressing
+            already rendered url
           </p>
-          <Link href="/name/address/xyz">Go to xyz page</Link>
+          <Link href="/name/address/zia">Go to zia page</Link>
         </main>
       </>
     </div>

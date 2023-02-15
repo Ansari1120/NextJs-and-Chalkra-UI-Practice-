@@ -14,8 +14,23 @@ export default function GiveName({ params, searchParams }: {
 }) {
     return (
       <div>
-            This is the static its page name is : {params.name}.
-            
-      </div>
+      <main className={styles.main}>
+        <h2>The static Page</h2>
+        this staic page name is {params.name}.
+        <br />
+        <br />
+        the page created at builtime "satically"
+        <br />
+        <br />
+        <button type="button" onClick={() => router.push("/")}>
+          go back to main page
+        </button>
+        <br />
+        <br />
+        <button type="button" onClick={() => router.push("/name")}>
+          go back to name page
+        </button>
+      </main>
+    </div>
     )
   }

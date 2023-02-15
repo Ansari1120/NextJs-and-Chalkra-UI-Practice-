@@ -1,24 +1,25 @@
-"use client";
 
-import { useRouter } from "next/navigation";
-import styles from "/app/page.module.css";
+//https://beta.nextjs.org/docs/data-fetching/generating-static-params
+export async function generateStaticParams() {
+  const names: string[] = ["zia", "zeeshan", "hira"];
 
-export default function GiveName({
-  params,
-  searchParams,
-}: {
-  params: { name: string };
-  searchParams?: { id?: string };
+  return names.map((name) => ({
+    name: name,
+  }));
+}
+
+export default function GiveName({ params, searchParams }: {
+  params: { name: string },
+  searchParams: { id: string },
 }) {
-  const router = useRouter();
-  return (
-    <div>
+    return (
+      <div>
       <main className={styles.main}>
-        <h2>The Dynamic Page</h2>
-        this dynamic page name is {params.name}.
+        <h2>The static Page</h2>
+        this staic page name is {params.name}.
         <br />
         <br />
-        the page created at runtime "dynamically"
+        the page created at builtime "satically"
         <br />
         <br />
         <button type="button" onClick={() => router.push("/")}>
@@ -31,5 +32,5 @@ export default function GiveName({
         </button>
       </main>
     </div>
-  );
-}
+    )
+  }
