@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 //https://beta.nextjs.org/docs/data-fetching/generating-static-params
 export async function generateStaticParams() {
   const names: string[] = ["zia", "zeeshan", "hira"];
@@ -14,6 +15,7 @@ export default function GiveName({
   params: { name: string };
   searchParams: { id: string };
 }) {
+  const router = useRouter();
   return (
     <div>
       <main>
