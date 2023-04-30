@@ -1,134 +1,36 @@
-# Simple Books API using Next.js 13 and Neon
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-Develop a REST API that allows you to reserve a book. This API should be fully founctional with SQL calls to Neon Database.
+## Getting Started
 
-The API should mirror the funtionality available at: 
+First, run the development server:
 
-https://simple-books-api.glitch.me
-
-Deploy your REST API is available on Vercel.
-
-Note: Study Steps 11, 12, and 13 to learn how to build APIs. Note middleware (Step 13) should be used to implement authentication.  
-
-## Endpoints ##
-
-### Status ###
-
-GET `/status`
-
-Returns the status of the API.
-
-### List of books ###
-
-GET `/books`
-
-Returns a list of books.
-
-Optional query parameters:
-
-- type: fiction or non-fiction
-- limit: a number between 1 and 20.
-
-
-### Get a single book ###
-
-GET `/books/:bookId`
-
-Retrieve detailed information about a book.
-
-
-### Submit an order ###
-
-POST `/orders`
-
-Allows you to submit a new order. Requires authentication.
-
-The request body needs to be in JSON format and include the following properties:
-
- - `bookId` - Integer - Required
- - `customerName` - String - Required
-
-Example
-```
-POST /orders/
-Authorization: Bearer <YOUR TOKEN>
-
-{
-  "bookId": 1,
-  "customerName": "John"
-}
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
 ```
 
-The response body will contain the order Id.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Get all orders ###
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-GET `/orders`
+[http://localhost:3000/api/hello](http://localhost:3000/api/hello) is an endpoint that uses [Route Handlers](https://beta.nextjs.org/docs/routing/route-handlers). This endpoint can be edited in `app/api/hello/route.ts`.
 
-Allows you to view all orders. Requires authentication.
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-### Get an order ###
+## Learn More
 
-GET `/orders/:orderId`
+To learn more about Next.js, take a look at the following resources:
 
-Allows you to view an existing order. Requires authentication.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-### Update an order ###
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-PATCH `/orders/:orderId`
+## Deploy on Vercel
 
-Update an existing order. Requires authentication.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-The request body needs to be in JSON format and allows you to update the following properties:
-
- - `customerName` - String
-
- Example
-```
-PATCH /orders/PF6MflPDcuhWobZcgmJy5
-Authorization: Bearer <YOUR TOKEN>
-
-{
-  "customerName": "John"
-}
-```
-
-### Delete an order ###
-
-DELETE `/orders/:orderId`
-
-Delete an existing order. Requires authentication.
-
-The request body needs to be empty.
-
- Example
-```
-DELETE /orders/PF6MflPDcuhWobZcgmJy5
-Authorization: Bearer <YOUR TOKEN>
-```
-
-## API Authentication ##
-
-To submit or view an order, you need to register your API client.
-
-POST `/api-clients/`
-
-The request body needs to be in JSON format and include the following properties:
-
- - `clientName` - String
- - `clientEmail` - String
-
- Example
-
- ```
- {
-    "clientName": "Postman",
-    "clientEmail": "valentin@example.com"
-}
- ```
-
-The response body will contain the access token. The access token is valid for 7 days.
-
-**Possible errors**
-
-Status code 409 - "API client already registered." Try changing the values for `clientEmail` and `clientName` to something else.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
