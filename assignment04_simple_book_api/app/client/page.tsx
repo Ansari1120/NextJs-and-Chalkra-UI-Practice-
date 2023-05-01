@@ -1,35 +1,29 @@
 "use client";
+
 import React from "react";
-import useSwr from "swr";
+import useSWR from "swr";
 
-type Book = {
-  id: number;
-  name: string;
-  type: string;
-  available: boolean;
-};
+const url = "https://api.quotable.io/random";
 
-const url = "https://simple-books-api.glitch.me/books";
 //give us data from api
-const fetcher = (url: string) =>
-  fetch(url).then((res) => {
-    res.json;
-  });
 
-export default async function Staticpage() {
-  useSwr(url,fetcher)
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
+export default function Clientpage() {
+  const { data, error, isLoading } = useSWR(url, fetcher);
+  if (error) return <div>error</div>;
+  if (isLoading)
+    return (
+      <div>
+        <h1>client page</h1>
+        Loading....
+      </div>
+    );
+  console.log(data.content);
   return (
     <div>
       <h1>client page</h1>
-      {books.map((book: Book) => {
-        return (
-          <ul key={book.id}>
-            <li>
-              {book.name} - {book.type} - {book.available}
-            </li>
-          </ul>
-        );
-      })}
+      {data.content}
     </div>
   );
 }

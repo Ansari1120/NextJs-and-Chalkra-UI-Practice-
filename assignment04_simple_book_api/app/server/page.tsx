@@ -15,7 +15,7 @@ async function getBooks() {
   return data;
 }
 
-export default async function Staticpage() {
+export default async function Serverpage() {
   const books = await getBooks();
   console.log(books);
   return (
