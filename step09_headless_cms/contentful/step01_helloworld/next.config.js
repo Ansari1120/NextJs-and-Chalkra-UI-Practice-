@@ -4,9 +4,10 @@ const nextConfig = {
     appDir: true,
   },
   env: {
-    SPACE_ID: "507pec0nzn",
-    CONTENTFUL_ACCESS_KEY: "uvhKkHLM8N2jzZ8NVCwnpL-YcAcLIDmLe0J7fmmdE"
+    CONTENTFUL_SPACE_ID: "b5y5122bavz3",
+    enviroment: "master",
+    // CONTENTFUL_ACCESS_KEY: "uvhKkHLM8N2jzZ8NVCwnpL-YcAcLIDmLe0J7fmmdE"
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
