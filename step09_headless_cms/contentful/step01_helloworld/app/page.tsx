@@ -1,3 +1,5 @@
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+
 async function getArticles() {
   const res = await fetch(
     `https://cdn.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/${process.env.enviroment}/entries?access_token=${process.env.CONTENTFUL_ACCESS_KEY}&content_type=article`
@@ -18,8 +20,8 @@ export default async function Home() {
   return (
     <>
       <ul>
-        {articles.items.map((item: any, index: any) => (
-          <li key={item.sys.id}>{item.fields.title}</li>
+        {articles.items.map((item: any) => (
+          <><li key={item.sys.id}>{item.fields.title}</li><li>{documentToReactComponents(item.fields.articleBody)}</li></>
         ))}
       </ul>
     </>
