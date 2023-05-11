@@ -19,7 +19,7 @@ export default async function Home() {
     <>
       <ul>
         {articles.items.map((item: any, index: any) => (
-          <li key={index}>{item.fields.name}</li>
+          <li key={item.sys.id}>{item.fields.title}</li>
         ))}
       </ul>
     </>
