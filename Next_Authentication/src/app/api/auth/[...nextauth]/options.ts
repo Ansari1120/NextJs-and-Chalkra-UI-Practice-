@@ -1,8 +1,30 @@
 import type { NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
-
+import { connect } from "@/lib/mongo.config";
+import { User } from "@/model/userModel";
 export const options: NextAuthOptions = {
+  pages: {
+    signIn: "/login",
+  },
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      try {
+        connect();
+
+        const findUser = await User.findOne({ email: user.email });
+
+        if (findUser) {
+          return true;
+        }
+        await User.create({ name: user.name, email: user.email });
+        return true;
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+    },
+  },
   providers: [
     GitHubProvider({
       clientId: process.env.GITHUB_ID as string,
@@ -23,7 +45,9 @@ export const options: NextAuthOptions = {
         },
       },
       async authorize(credentials, req) {
-        const user = { id: "1", name: "J Smith", email: credentials?.email };
+        connect();
+
+        const user = await User.findOne({ email: credentials?.email });
 
         if (user) {
           // Any object returned will be saved in `user` property of the JWT

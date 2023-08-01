@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
+import { signIn } from "next-auth/react";
 export default function Login() {
   const params = useSearchParams();
   const [cridentials, setCridentials] = useState({
@@ -23,6 +24,12 @@ export default function Login() {
         const response = res.data;
         if (response.status == 200) {
           console.log(response.message);
+          signIn("credentials", {
+            email: cridentials.email,
+            password: cridentials.password,
+            callbackUrl: "/",
+            redirect: true,
+          });
         } else if (response?.status == 404) {
           console.log(response.message);
           if (response.message) {
@@ -40,6 +47,13 @@ export default function Login() {
         setLoading(false);
         console.log("somethng went wrong", e);
       });
+  };
+
+  const GithubSignin = () => {
+    signIn("github", {
+      callbackUrl: "/",
+      redirect: true,
+    });
   };
   console.log(errors);
   return (
@@ -89,7 +103,7 @@ export default function Login() {
                       }
                     ></input>
                     <span className="text-red-500 font-bold">
-                      {errors.length >= 2 && (!errors.message)
+                      {errors.length >= 2 && !errors.message
                         ? errors
                             .filter((obj: any) => obj.field == "email")
                             .map((obj: any) => obj.message)
@@ -129,7 +143,7 @@ export default function Login() {
                       }
                     ></input>
                     <span className="text-red-500 font-bold">
-                      {errors.length >= 2 && (!errors.message)
+                      {errors.length >= 2 && !errors.message
                         ? errors
                             .filter((obj: any) => obj.field == "password")
                             .map((obj: any) => obj.message)
@@ -172,22 +186,26 @@ export default function Login() {
                 </div>
               </div>
             </form>
+            <p className="text-center my-5">
+              ------------------ OR ------------------
+            </p>
             <div className="mt-3 space-y-3">
               <button
                 type="button"
                 className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
+              onClick={GithubSignin}
               >
                 <span className="mr-2 inline-block">
                   <svg
-                    className="h-6 w-6 text-rose-500"
+                    className="h-6 w-6 text-black"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                   >
-                    <path d="M20.283 10.356h-8.327v3.451h4.792c-.446 2.193-2.313 3.453-4.792 3.453a5.27 5.27 0 0 1-5.279-5.28 5.27 5.27 0 0 1 5.279-5.279c1.259 0 2.397.447 3.29 1.178l2.6-2.599c-1.584-1.381-3.615-2.233-5.89-2.233a8.908 8.908 0 0 0-8.934 8.934 8.907 8.907 0 0 0 8.934 8.934c4.467 0 8.529-3.249 8.529-8.934 0-.528-.081-1.097-.202-1.625z"></path>
+                    <path d="M12,2.2467A10.00042,10.00042,0,0,0,8.83752,21.73419c.5.08752.6875-.21247.6875-.475,0-.23749-.01251-1.025-.01251-1.86249C7,19.85919,6.35,18.78423,6.15,18.22173A3.636,3.636,0,0,0,5.125,16.8092c-.35-.1875-.85-.65-.01251-.66248A2.00117,2.00117,0,0,1,6.65,17.17169a2.13742,2.13742,0,0,0,2.91248.825A2.10376,2.10376,0,0,1,10.2,16.65923c-2.225-.25-4.55-1.11254-4.55-4.9375a3.89187,3.89187,0,0,1,1.025-2.6875,3.59373,3.59373,0,0,1,.1-2.65s.83747-.26251,2.75,1.025a9.42747,9.42747,0,0,1,5,0c1.91248-1.3,2.75-1.025,2.75-1.025a3.59323,3.59323,0,0,1,.1,2.65,3.869,3.869,0,0,1,1.025,2.6875c0,3.83747-2.33752,4.6875-4.5625,4.9375a2.36814,2.36814,0,0,1,.675,1.85c0,1.33752-.01251,2.41248-.01251,2.75,0,.26251.1875.575.6875.475A10.0053,10.0053,0,0,0,12,2.2467Z"></path>
                   </svg>
                 </span>
-                Sign in with Google
+                Sign in with GitHub
               </button>
             </div>
           </div>
@@ -204,31 +222,16 @@ export default function Login() {
   );
 }
 
-
-
-
-
-
-
-
 // http://localhost:3000/login
-
 
 // https://vinejs.dev/docs/error_reporter
 
-
 // https://www.devui.io/components/signin
-
-
 
 // https://next-auth.js.org/providers/credentials
 
-
-
 // https://cloud.mongodb.com/v2/64be9209fbb37e4ae8393d13#/metrics/replicaSet/64be923787f1c45fa345c5d1/explorer/test/users/find
 
-
 // https://github.com/TusharVashishth/Nextjs_Authentication/blob/main/src/models/User.ts
-
 
 // https://www.youtube.com/watch?v=lfX8nuWwrOc&t=3803s

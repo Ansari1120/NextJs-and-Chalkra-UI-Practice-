@@ -1,3 +1,4 @@
+import AuthProvider from "@/context/authProvider";
 import Header from "./components/header";
 // import AuthProvider from "./context/authProvider";
 import "./globals.css";
@@ -14,10 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/* <AuthProvider>
-        <Header /> */}
-      <body>{children}</body>
-      {/* </AuthProvider> */}
+      <body>
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }
