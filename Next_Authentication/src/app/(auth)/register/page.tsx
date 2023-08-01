@@ -194,6 +194,7 @@ export default function Register() {
                 </div>
               </div>
             </form>
+<<<<<<< HEAD
             <p className="text-center my-5">
               ------------------ OR ------------------
             </p>
@@ -215,6 +216,8 @@ export default function Register() {
                 Sign in with GitHub
               </button>
             </div>
+=======
+>>>>>>> a2f0a1b ("more new features added in authentication next js")
           </div>
         </div>
         <div className="h-full w-full">

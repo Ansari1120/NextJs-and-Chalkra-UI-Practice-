@@ -3,6 +3,11 @@ import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { connect } from "@/lib/mongo.config";
 import { User } from "@/model/userModel";
+<<<<<<< HEAD
+=======
+import GoogleProvider from "next-auth/providers/google";
+import FacebookProvider from "next-auth/providers/facebook";
+>>>>>>> a2f0a1b ("more new features added in authentication next js")
 export const options: NextAuthOptions = {
   pages: {
     signIn: "/login",
@@ -24,11 +29,45 @@ export const options: NextAuthOptions = {
         return false;
       }
     },
+<<<<<<< HEAD
+=======
+    session: ({ session, token }) => {
+      console.log('Session Callback', { session, token })
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id,
+          randomKey: token.randomKey
+        }
+      }
+    },
+    jwt: ({ token, user }) => {
+      console.log('JWT Callback', { token, user })
+      if (user) {
+        const u = user as unknown as any
+        return {
+          ...token,
+          id: u.id,
+          randomKey: u.randomKey
+        }
+      }
+      return token
+    }
+>>>>>>> a2f0a1b ("more new features added in authentication next js")
   },
   providers: [
     GitHubProvider({
       clientId: process.env.GITHUB_ID as string,
       clientSecret: process.env.GITHUB_SECRET as string,
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_CLIENT_ID as string,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -62,4 +101,8 @@ export const options: NextAuthOptions = {
       },
     }),
   ],
+  session: {
+    strategy: "jwt",
+  },
+  secret: process.env.NEXTAUTH_SECRET,
 };
