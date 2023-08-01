@@ -1,9 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  compiler: {
-    styledComponents: true,
+  experimental: {
+    appDir: true,
   },
-}
+  images: {
+    domains: ["avatars.githubusercontent.com"], // Add the domain(s) of the external images you want to display.
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

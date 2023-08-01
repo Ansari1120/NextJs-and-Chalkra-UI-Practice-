@@ -1,9 +1,6 @@
 import type { NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { connectToMongoDb } from "@/lib/connectMongo";
-import User from "@/app/model/userModel";
-import { compare } from "bcryptjs";
 
 export const options: NextAuthOptions = {
   providers: [
@@ -14,46 +11,31 @@ export const options: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: {
-          label: "Username:",
-          type: "text",
-          placeholder: "your-cool-username",
+        email: {
+          label: "E-mail:",
+          type: "email",
+          placeholder: "Enter Your E-mail",
         },
         password: {
           label: "Password:",
           type: "password",
-          placeholder: "your-awesome-password",
+          placeholder: "Enter your password",
         },
       },
-      async authorize(credentials) {
-        // This is where you need to retrieve user data
-        // to verify with credentials
-        // Docs: https://next-auth.js.org/configuration/providers/credentials
-        // const user = { id: "42", name: "Dave", password: "nextauth" };
-        await connectToMongoDb().catch((err) => {
-          throw new Error(err);
-        });
+      async authorize(credentials, req) {
+        const user = { id: "1", name: "J Smith", email: credentials?.email };
 
-        const user = await User.findOne({
-          username: credentials?.username,
-        }).select("+password");
-
-        if (!user) {
-          throw new Error("Invalid credentials");
-        }
-        const isPasswordCorrect = await compare(
-          credentials!.password,
-          user.password
-        );
-
-        if (credentials?.username === user.name && isPasswordCorrect) {
+        if (user) {
+          // Any object returned will be saved in `user` property of the JWT
           return user;
         } else {
           return null;
+          // If you return null then an error will be displayed advising the user to check their details.
+          return null;
+
+          // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
         }
       },
     }),
   ],
 };
-
-//export default NextAuth(options)
