@@ -3,11 +3,8 @@ import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { connect } from "@/lib/mongo.config";
 import { User } from "@/model/userModel";
-<<<<<<< HEAD
-=======
 import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
->>>>>>> a2f0a1b ("more new features added in authentication next js")
 export const options: NextAuthOptions = {
   pages: {
     signIn: "/login",
@@ -29,8 +26,6 @@ export const options: NextAuthOptions = {
         return false;
       }
     },
-<<<<<<< HEAD
-=======
     session: ({ session, token }) => {
       console.log('Session Callback', { session, token })
       return {
@@ -54,7 +49,6 @@ export const options: NextAuthOptions = {
       }
       return token
     }
->>>>>>> a2f0a1b ("more new features added in authentication next js")
   },
   providers: [
     GitHubProvider({

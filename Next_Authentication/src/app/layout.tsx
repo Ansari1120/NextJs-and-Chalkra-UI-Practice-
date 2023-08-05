@@ -1,6 +1,6 @@
 import AuthProvider from "@/context/authProvider";
 import Header from "./components/header";
-
+import { cookies } from "next/headers";
 // import AuthProvider from "./context/authProvider";
 import "./globals.css";
 // export const metadata = {
@@ -13,17 +13,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const cookieStore = cookies();
+  const nextToken = cookieStore.get("next-auth.session-token");
+  console.log(nextToken);
   return (
     <html lang="en">
       <body>
-<<<<<<< HEAD
-        <AuthProvider>{children}</AuthProvider>
-=======
         <AuthProvider>
-          <Header />
+          {nextToken?.value ? <Header /> : null}
           {children}
         </AuthProvider>
->>>>>>> a2f0a1b ("more new features added in authentication next js")
       </body>
     </html>
   );
